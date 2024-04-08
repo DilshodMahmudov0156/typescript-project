@@ -1,13 +1,9 @@
-import Header from "./components/header.tsx";
-import {ChangeEventHandler, useState} from "react";
+import {ChangeEvent, useState} from "react";
 import {IData} from "./interfaces";
 
+import {data} from "./const";
+
 function App(): JSX.Element {
-    const data: IData[] = [
-        {id: 1, title: "Omar", descritpion: "description"},
-        {id: 2, title: "Osman", descritpion: "description"},
-        {id: 3, title: "Abdulloh", descritpion: "description"}
-    ]
     const [title, setTitle] = useState<string>("");
     const [arr, setArr] = useState<IData>(data);
 
@@ -28,16 +24,23 @@ function App(): JSX.Element {
     }
 
     return (
-        <div>
-            <div className="top">
-                <h2>TODO list</h2>
-                <input type="text" placeholder="enter todo" value={title} onChange={changeHandler}/>
-                <button className="add-btn" onClick={handleSubmit}>add+</button>
-            </div>
-            <div className="lists-body">
-                {arr.map(item => (
-                    <li key={item.id}>{item.title}</li>
-                ))}
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-xl-3">
+                    <div className="card shadow-lg p-3">
+                        <div className="top text-center">
+                            <h2 className="text-center text-warning">ToDo list</h2>
+                            <input type="text" className="form-control my-3" placeholder="enter todo" value={title}
+                                   onChange={changeHandler}/>
+                            <button className="btn btn-success" onClick={handleSubmit}>add +</button>
+                        </div>
+                        <ol className="list-group mt-3">
+                            {arr.map(item => (
+                                <li key={item.id} className="list-group-item">{item.title}</li>
+                            ))}
+                        </ol>
+                    </div>
+                </div>
             </div>
         </div>
     );
