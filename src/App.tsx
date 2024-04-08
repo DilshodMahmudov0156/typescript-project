@@ -21,22 +21,39 @@ function App(): JSX.Element {
         setArr(arr => [...arr, newData]);
         console.log(newData),
         setTitle("");
-    }
+    };
+
+    const deleteItem = (id: number): void => {
+        const newData = arr.filter(item => item.id != id);
+        setArr(newData);
+    };
 
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
                 <div className="col-xl-3">
                     <div className="card shadow-lg p-3">
-                        <div className="top text-center">
+                        <div className="top">
                             <h2 className="text-center text-warning">ToDo list</h2>
-                            <input type="text" className="form-control my-3" placeholder="enter todo" value={title}
-                                   onChange={changeHandler}/>
-                            <button className="btn btn-success" onClick={handleSubmit}>add +</button>
+                            <input
+                                type="text"
+                                className="form-control my-3 px-3"
+                                placeholder="enter_todo..."
+                                value={title}
+                                onChange={changeHandler}
+                            />
+                            <div className="text-center">
+                                <button className="btn btn-success" onClick={handleSubmit}>Add new</button>
+                            </div>
                         </div>
                         <ol className="list-group mt-3">
                             {arr.map(item => (
-                                <li key={item.id} className="list-group-item">{item.title}</li>
+                                <li key={item.id} className="list-group-item d-flex justify-content-between">
+                                    {item.title}
+                                    <button className="btn btn-danger" onClick={() => {deleteItem(item.id)}}>
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </li>
                             ))}
                         </ol>
                     </div>
